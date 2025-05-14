@@ -1,16 +1,20 @@
-
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { ShoppingCart, Menu, Search, X } from 'lucide-react';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { ShoppingCart, Menu, Search, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import Icon from '@/components/ui/icon';
+import Icon from "@/components/ui/icon";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleSearch = () => setIsSearchOpen(!isSearchOpen);
+
+  const handleCartClick = () => {
+    navigate("/cart");
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-game-dark/90 backdrop-blur-md border-b border-game-primary/20">
@@ -28,10 +32,30 @@ const Header = () => {
 
           {/* Основная навигация - скрыта на мобильных */}
           <nav className="hidden md:flex space-x-6">
-            <Link to="/" className="text-white hover:text-game-primary transition">Главная</Link>
-            <Link to="/catalog" className="text-white hover:text-game-primary transition">Каталог</Link>
-            <Link to="/new" className="text-white hover:text-game-primary transition">Новинки</Link>
-            <Link to="/sale" className="text-white hover:text-game-primary transition">Скидки</Link>
+            <Link
+              to="/"
+              className="text-white hover:text-game-primary transition"
+            >
+              Главная
+            </Link>
+            <Link
+              to="/catalog"
+              className="text-white hover:text-game-primary transition"
+            >
+              Каталог
+            </Link>
+            <Link
+              to="/new"
+              className="text-white hover:text-game-primary transition"
+            >
+              Новинки
+            </Link>
+            <Link
+              to="/sale"
+              className="text-white hover:text-game-primary transition"
+            >
+              Скидки
+            </Link>
           </nav>
 
           {/* Правая часть навигации */}
@@ -51,22 +75,37 @@ const Header = () => {
             </div>
 
             {/* Иконки действий */}
-            <Button variant="ghost" size="icon" onClick={toggleSearch} className="md:hidden">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleSearch}
+              className="md:hidden"
+            >
               <Icon name="Search" className="text-white" />
             </Button>
-            
-            <Button variant="ghost" size="icon" className="relative">
+
+            <Button
+              variant="ghost"
+              size="icon"
+              className="relative"
+              onClick={handleCartClick}
+            >
               <Icon name="ShoppingCart" className="text-white" />
               <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-game-primary text-white text-xs flex items-center justify-center">
-                0
+                2
               </span>
             </Button>
-            
+
             <Button className="bg-game-primary hover:bg-game-accent text-white rounded-md hidden md:flex">
               Войти
             </Button>
-            
-            <Button variant="ghost" size="icon" onClick={toggleMenu} className="md:hidden">
+
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleMenu}
+              className="md:hidden"
+            >
               <Icon name={isMenuOpen ? "X" : "Menu"} className="text-white" />
             </Button>
           </div>
@@ -101,17 +140,40 @@ const Header = () => {
         {isMenuOpen && (
           <div className="md:hidden bg-game-dark border-t border-game-primary/20 mt-3 animate-fadeIn">
             <nav className="flex flex-col py-2">
-              <Link to="/" className="px-4 py-3 hover:bg-muted/20" onClick={toggleMenu}>
+              <Link
+                to="/"
+                className="px-4 py-3 hover:bg-muted/20"
+                onClick={toggleMenu}
+              >
                 Главная
               </Link>
-              <Link to="/catalog" className="px-4 py-3 hover:bg-muted/20" onClick={toggleMenu}>
+              <Link
+                to="/catalog"
+                className="px-4 py-3 hover:bg-muted/20"
+                onClick={toggleMenu}
+              >
                 Каталог
               </Link>
-              <Link to="/new" className="px-4 py-3 hover:bg-muted/20" onClick={toggleMenu}>
+              <Link
+                to="/new"
+                className="px-4 py-3 hover:bg-muted/20"
+                onClick={toggleMenu}
+              >
                 Новинки
               </Link>
-              <Link to="/sale" className="px-4 py-3 hover:bg-muted/20" onClick={toggleMenu}>
+              <Link
+                to="/sale"
+                className="px-4 py-3 hover:bg-muted/20"
+                onClick={toggleMenu}
+              >
                 Скидки
+              </Link>
+              <Link
+                to="/cart"
+                className="px-4 py-3 hover:bg-muted/20"
+                onClick={toggleMenu}
+              >
+                Корзина
               </Link>
               <div className="px-4 py-3">
                 <Button className="w-full bg-game-primary hover:bg-game-accent">
